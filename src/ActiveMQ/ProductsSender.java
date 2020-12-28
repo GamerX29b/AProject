@@ -6,9 +6,6 @@ import classes.Client;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class ProductsSender {
 
     //URL of the JMS server. DEFAULT_BROKER_URL will just mean that JMS server is on localhost
@@ -40,7 +37,7 @@ public class ProductsSender {
 
         Client client = new Client();
         client.setClientName("Utan");
-        client.setClientAdres("Karbishewa");
+        client.setClientAddress("Karbishewa");
 
 
         ObjectMessage message = session.createObjectMessage(client);

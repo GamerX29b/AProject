@@ -6,7 +6,7 @@ public class Client implements Serializable {
     private static final long serialVersionUID = 45465446546546546L;
     private int id;
     private String clientName;
-    private String clientAdres;
+    private String clientAddress;
 
     public int getId() {
         return id;
@@ -24,11 +24,11 @@ public class Client implements Serializable {
         this.clientName = clientName;
     }
 
-    public String getClientAdres() {
-        return clientAdres;
+    public String getClientAddress() {
+        return clientAddress;
     }
 
-    public void setClientAdres(String clientAdres) {
-        this.clientAdres = clientAdres;
+    public void setClientAddress(String clientAddress) {
+        this.clientAddress = clientAddress;
     }
 }

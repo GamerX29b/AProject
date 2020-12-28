@@ -8,14 +8,14 @@
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <changeSet context="legacy" author="Eyrikh" id="1">
-        <createTable tableName="сlients">
+        <createTable tableName="сlient">
             <column autoIncrement="true" name="id" type="SERIAL">
                 <constraints nullable="false"/>
             </column>
             <column name="clientName" type="VARCHAR(255)"/>
-            <column name="clientAdres" type="VARCHAR(255)"/>
+            <column name="clientAddress" type="VARCHAR(255)"/>
         </createTable>
-        <createTable tableName="зroducts">
+        <createTable tableName="product">
             <column autoIncrement="true" name="id" type="SERIAL">
                 <constraints nullable="false"/>
             </column>
