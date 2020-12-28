@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="H2 - default@localhost" uuid="3afa879f-e078-4f02-b7db-48877251ab32">
+      <driver-ref>h2.unified</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:~/AProject</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="AProject@localhost" uuid="d2a4af73-7c84-4a42-b176-0510d9e395dd">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/AProject</jdbc-url>
+    </data-source>
+  </component>
+</project>

@@ -8,12 +8,29 @@
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <changeSet context="legacy" author="Eyrikh" id="1">
-        <createTable tableName="test">
+        <createTable tableName="сlients">
             <column autoIncrement="true" name="id" type="SERIAL">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_name" type="VARCHAR(255)"/>
-            <column name="preferences" type="TEXT"/>
+            <column name="clientName" type="VARCHAR(255)"/>
+            <column name="clientAdres" type="VARCHAR(255)"/>
+        </createTable>
+        <createTable tableName="зroducts">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nameProduct" type="VARCHAR(255)"/>
+            <column name="Quantity" type="INT"/>
+        </createTable>
+        <createTable tableName="order">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="orderGroupId" type="SERIAL"/>
+            <column name="userId" type="SERIAL"/>
+            <column name="ProductId" type="SERIAL"/>
+            <column name="quantity" type="INT"/>
+            <column name="date" type="TIMESTAMP"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>
