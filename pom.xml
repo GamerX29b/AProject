@@ -7,6 +7,7 @@
     </properties>
     <artifactId>Aproject-system</artifactId>
     <version>1.0</version>
+    <packaging>war</packaging>
     <build>
         <plugins>
             <plugin>
@@ -51,6 +52,10 @@
                     </execution>
                 </executions>
             </plugin>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
         </plugins>
     </build>
 
@@ -115,5 +120,14 @@
             <version>2.3.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

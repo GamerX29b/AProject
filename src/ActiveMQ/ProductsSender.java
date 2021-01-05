@@ -41,7 +41,7 @@ public class ProductsSender {
         GetFromBase getFromBase = new GetFromBase();
 
 
-        TextMessage message = session.createTextMessage(JAXBConverter.ClientToXml(getFromBase.getClientById(2)));
+        TextMessage message = session.createTextMessage(JAXBConverter.clientToXml(getFromBase.getClientById(2)));
 
         session.createObjectMessage();
         // Here we are sending our message!

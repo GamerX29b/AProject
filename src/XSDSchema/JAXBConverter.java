@@ -71,7 +71,6 @@ public class JAXBConverter {
         return xmlOrder;
     }
 
-
     public static Order xmlToOrder(String textXml) {
         Order xmlToProduct = new Order();
         JAXBContext jaxbContext;
@@ -86,7 +85,7 @@ public class JAXBConverter {
         return xmlToProduct;
     }
 
-    public static String ClientToXml(Client client) {
+    public static String clientToXml(Client client) {
         String xmlClient = "";
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(Client.class);

@@ -13,4 +13,10 @@
       <module name="AProject" target="11" />
     </bytecodeTargetLevel>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_STRING" value="--add-modules java.xml.bind" />
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="AProject" options="" />
+    </option>
+  </component>
 </project>
