@@ -1,8 +1,11 @@
 package ActiveMQ;
 
 import javax.jms.*;
+import javax.xml.bind.JAXBContext;
 
-import classes.Client;
+import XSDSchema.Client;
+import XSDSchema.JAXBConverter;
+import database.GetFromBase;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
@@ -12,7 +15,7 @@ public class ProductsSender {
     private static String url = ActiveMQConnection.DEFAULT_BROKER_URL;
 
     // default broker URL is : tcp://localhost:61616"
-    private static String subject = "JCG_QUEUE"; // Queue Name.You can create any/many queue names as per your requirement.
+    private static String subject = "BProject"; // Queue Name.You can create any/many queue names as per your requirement.
 
     public static void main(String[] args) throws JMSException {
         // Getting JMS connection from the server and starting it
@@ -33,14 +36,12 @@ public class ProductsSender {
         // MessageProducer is used for sending messages to the queue.
         MessageProducer producer = session.createProducer(destination);
 
-        // We will send a small text message saying 'Hello World!!!'
 
         Client client = new Client();
-        client.setClientName("Utan");
-        client.setClientAddress("Karbishewa");
+        GetFromBase getFromBase = new GetFromBase();
 
 
-        ObjectMessage message = session.createObjectMessage(client);
+        TextMessage message = session.createTextMessage(JAXBConverter.ClientToXml(getFromBase.getClientById(2)));
 
         session.createObjectMessage();
         // Here we are sending our message!

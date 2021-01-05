@@ -8,7 +8,7 @@
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <changeSet context="legacy" author="Eyrikh" id="1">
-        <createTable tableName="сlient">
+        <createTable tableName="client">
             <column autoIncrement="true" name="id" type="SERIAL">
                 <constraints nullable="false"/>
             </column>
