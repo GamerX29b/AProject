@@ -3,6 +3,9 @@ package Aproject.Aprojectsystem.database;
 import Aproject.Aprojectsystem.XSDSchema.Client;
 import Aproject.Aprojectsystem.XSDSchema.Order;
 import Aproject.Aprojectsystem.XSDSchema.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -14,8 +17,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.GregorianCalendar;
 
+
 public class GetFromBase extends GenerateConnection {
 
+    @Autowired
     public Client getClientById(int idClient) {
         Client client = new Client();
 

@@ -56,7 +56,7 @@ public class JAXBConverter {
     public static String OrderToXml(Order order) {
         String xmlOrder = "";
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(Product.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(Order.class);
             Marshaller jaxbNMarshaller = jaxbContext.createMarshaller();
             jaxbNMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             StringWriter sw = new StringWriter();
@@ -102,7 +102,7 @@ public class JAXBConverter {
         Client xmlToClient = new Client();
         JAXBContext jaxbContext;
         try {
-            jaxbContext = JAXBContext.newInstance(Product.class);
+            jaxbContext = JAXBContext.newInstance(Client.class);
             StringReader readingStringClient = new StringReader(textXml);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             xmlToClient = (Client) jaxbUnmarshaller.unmarshal(readingStringClient);

@@ -19,7 +19,7 @@ public class BrokerTransmitter extends CreateConnection{
     private static String subjectProduct = "BProjectProduct";
     private static String subjectOrder = "BProjectOrder";
 
-    public boolean ClientSender(Client client) {
+    public boolean clientSender(Client client) {
         if (client == null) return false;
         try {
             Connection connection = getConnection();
@@ -40,7 +40,7 @@ public class BrokerTransmitter extends CreateConnection{
         }
     }
 
-    public boolean ProductSender(Product product) {
+    public boolean productSender(Product product) {
         if (product == null) return false;
         try {
             Connection connection = getConnection();

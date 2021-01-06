@@ -53,7 +53,7 @@ public class BrokerReceiver extends CreateConnection{ //Reseiver это приё
             Message message = consumer.receive();         // Тут получаем сообщение
             if (message instanceof TextMessage) {
                 TextMessage textMessage  = (TextMessage) message;  //Приведение к типу textMessage
-                client = JAXBConverter.xmlToClient(textMessage.toString());
+                client = JAXBConverter.xmlToClient(textMessage.getText());
             }
             connection.close();
         } catch (JMSException e) {
