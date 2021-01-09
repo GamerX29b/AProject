@@ -48,7 +48,7 @@ public class GetFromBase extends GenerateConnection {
     public Product getProductById(int idProduct) {
         Product product = new Product();
 
-        String select = new StringBuilder().append("SELECT * FROM \"product\" WHERE like ").append(idProduct).append(";").toString();
+        String select = new StringBuilder().append("SELECT * FROM \"product\" WHERE id =").append(idProduct).append(";").toString();
         Connection conn = getConnect();
         try {
 
@@ -71,7 +71,7 @@ public class GetFromBase extends GenerateConnection {
     public Order getOrderById(int idOrder) {
         Order order = new Order();
 
-        String select = new StringBuilder().append("SELECT * FROM \"order\" WHERE like ").append(idOrder).append(";").toString();
+        String select = new StringBuilder().append("SELECT * FROM \"order\" WHERE id =").append(idOrder).append(";").toString();
         Connection conn = getConnect();
         try {
 
