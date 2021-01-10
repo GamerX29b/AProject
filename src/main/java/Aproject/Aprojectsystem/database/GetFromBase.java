@@ -81,7 +81,6 @@ public class GetFromBase extends GenerateConnection {
             while (resultSet.next()) {
                 order.setId(BigInteger.valueOf(resultSet.getInt(1)));
                 order.setOrderGroupId(resultSet.getString(2));
-                order.setUserId(BigInteger.valueOf(resultSet.getInt(3)));
                 order.setQuantity(BigInteger.valueOf(resultSet.getInt(4)));
                 GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTime(resultSet.getDate(5));

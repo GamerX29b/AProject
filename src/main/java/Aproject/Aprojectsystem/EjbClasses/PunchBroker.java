@@ -31,11 +31,10 @@ public class PunchBroker {
     }
 
     @RequestMapping("/fromBase")
-    public ResponseEntity punchBrokerReceiver() {
+    public ResponseEntity punchBrokerReceiver(@PathVariable int id) {
         GetFromBase getFromBase = new GetFromBase();
         BrokerTransmitter brokerTransmitter = new BrokerTransmitter();
-
-        brokerTransmitter.clientSender(getFromBase.getClientById(2));
+        brokerTransmitter.clientSender(getFromBase.getClientById(id));
 
         return ResponseEntity.ok().build();
     }
