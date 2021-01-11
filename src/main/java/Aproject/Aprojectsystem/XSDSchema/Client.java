@@ -159,4 +159,8 @@ public class Client {
         return this.order;
     }
 
+    public void setOrder(List<Order> orderList){
+        order = orderList;
+    }
+
 }
