@@ -32,5 +32,31 @@
             <column name="quantity" type="INT"/>
             <column name="date" type="TIMESTAMP"/>
         </createTable>
+        <rollback>
+            <dropTable  tableName="client"/>
+            <dropTable  tableName="product"/>
+            <dropTable  tableName="order"/>
+        </rollback>
+    </changeSet>
+    <changeSet author="Eyrikh" id="2">
+        <sql dbms="postgresql" endDelimiter=";">
+            CREATE SCHEMA 'aproject'
+        </sql>
+        <rollback>
+            <sql dbms="postgresql">
+                DROP SCHEMA 'aproject'
+            </sql>
+        </rollback>
+    </changeSet>
+    <changeSet author="Eyrikh" id="3">
+        <sql dbms="postgresql" endDelimiter=";">
+            CREATE ROLE 'aproject' LOGIN PASSWORD 'SUPERPUPER'
+            <!--В этой версии ДБ CREATE ROLE и CREATE USER равнозначны-->
+        </sql>
+        <rollback>
+            <sql dbms="postgresql">
+                DROP ROLE 'aproject'
+            </sql>
+        </rollback>
     </changeSet>
 </databaseChangeLog>

@@ -5,6 +5,7 @@ import Aproject.Aprojectsystem.BrokerClass.BrokerTransmitter;
 import Aproject.Aprojectsystem.XSDSchema.JAXBConverter;
 import Aproject.Aprojectsystem.database.GetFromBase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +36,6 @@ public class PunchBroker {
         GetFromBase getFromBase = new GetFromBase();
         BrokerTransmitter brokerTransmitter = new BrokerTransmitter();
         brokerTransmitter.clientSender(getFromBase.getClientById(id));
-
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
