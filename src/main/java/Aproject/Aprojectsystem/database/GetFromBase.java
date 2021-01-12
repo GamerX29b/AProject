@@ -15,10 +15,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 public class GetFromBase extends GenerateConnection {
@@ -85,10 +82,7 @@ public class GetFromBase extends GenerateConnection {
                 order.setId(BigInteger.valueOf(resultSet.getInt(1)));
                 order.setOrderGroupId(resultSet.getString(2));
                 order.setQuantity(BigInteger.valueOf(resultSet.getInt(4)));
-                GregorianCalendar calendar = new GregorianCalendar();
-                calendar.setTime(resultSet.getDate(5));
-                XMLGregorianCalendar xmlGregorianCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
-                order.setDate(xmlGregorianCalendar);
+                order.setDate(dataToCalendar(resultSet.getDate(5)));
             }
 
             conn.close();
@@ -101,32 +95,35 @@ public class GetFromBase extends GenerateConnection {
         Client client = new Client();
         List<Order> listOrder = new ArrayList<>();
 
-        String select =  new StringBuilder().append("SELECT \"client\".\"id\", \"client\".\"clientName\", \"client\".\"clientAddress\", \"order\".\"orderGroupId\", \"order\".\"ProductId\", \"order\".\"date\",\n" +
-                "       \"order\".\"quantity\", \"product\".\"id\", \"product\".\"nameProduct\"\n" +
-                "FROM \"client\", \"order\", \"product\"\n" +
+        String select =  new StringBuilder().append("SELECT \"client\".\"id\", \"client\".\"clientName\", \"client\".\"clientAddress\", " +
+                "\"order\".\"orderGroupId\", \"order\".\"ProductId\", \"order\".\"date\",\n" +
+                "\"order\".\"quantity\", \"product\".\"nameProduct\"\n" +
+                "FROM \"client\", \"order\", \"product\", \"order\", \"id\"\n" +
                 "WHERE \"client\".\"id\" = '").append(idClient).append("' and \"order\".\"ProductId\" = \"product\".\"id\"").toString();
-
+        Map<Integer, Order> orderSet = new HashMap<>();
+        List<Product> productList = new ArrayList<>();
         Connection conn = getConnect();
         try {
-
-
             Statement stmt  = conn.createStatement();
             ResultSet resultSet = stmt.executeQuery(select);
-
         while (resultSet.next()) {
-            List<Product> productList = new ArrayList<>();
+            Order order = new Order();
+            Product product = new Product();
             client.setId(BigInteger.valueOf(resultSet.getInt(1)));
             client.setClientName(resultSet.getString(2));
             client.setClientAddress(resultSet.getString(3));
-
-
+            order.setOrderGroupId(resultSet.getString(4));
+            product.setId(BigInteger.valueOf(resultSet.getInt(5)));
+            order.setDate(dataToCalendar(resultSet.getDate(6)));
+            product.setNameProduct(resultSet.getString(7));
+            order.setId(BigInteger.valueOf(resultSet.getInt(8)));
 
 
         }
             client.setOrder(listOrder);
 
             conn.close();
-        } catch (SQLException e) {
+        } catch (SQLException | DatatypeConfigurationException e) {
             System.out.println(e.getMessage());
         }
         return client;
