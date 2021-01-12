@@ -100,10 +100,11 @@ public class GetFromBase extends GenerateConnection {
     public Client getClientFromAllOrders(int idClient){
         Client client = new Client();
         List<Order> listOrder = new ArrayList<>();
-        String select = new StringBuilder().append("SELECT (1) * FROM \"user\" WHERE id =").append(idClient).append(";").toString();
-        "SELECT client.id, client.name, client.adress, order.groupId, order.productId, order.date, product.id, product.name" +
-                "FROM client, order, product " +
-                "WHERE client.id = order.owner_id and order.ProductId = product.id";
+
+        String select =  new StringBuilder().append("SELECT \"client\".\"id\", \"client\".\"clientName\", \"client\".\"clientAddress\", \"order\".\"orderGroupId\", \"order\".\"ProductId\", \"order\".\"date\",\n" +
+                "       \"order\".\"quantity\", \"product\".\"id\", \"product\".\"nameProduct\"\n" +
+                "FROM \"client\", \"order\", \"product\"\n" +
+                "WHERE \"client\".\"id\" = '").append(idClient).append("' and \"order\".\"ProductId\" = \"product\".\"id\"").toString();
 
         Connection conn = getConnect();
         try {
@@ -118,14 +119,14 @@ public class GetFromBase extends GenerateConnection {
             client.setClientName(resultSet.getString(2));
             client.setClientAddress(resultSet.getString(3));
 
-            productList
+
 
 
         }
-            client.setOrder();
+            client.setOrder(listOrder);
 
             conn.close();
-        } catch (SQLException | DatatypeConfigurationException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return client;

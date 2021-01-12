@@ -18,7 +18,7 @@ public class AddToBase extends GenerateConnection {
         String insert = new StringBuffer().append("INSERT INTO \"client\" (\"clientName\", \"clientAddress\") VALUES (")
                 .append(client.getClientName()).append(",").append(client.getClientAddress()).append(");").toString();
 
-        String select = "SELECT MAX(ID) FROM \"client\";";
+        String select = "SELECT MAX(ID) FROM \"client\";"; //Узнать какой айди
 
         Connection conn = getConnect();
         try {
