@@ -188,4 +188,7 @@ public class Order {
         return this.product;
     }
 
+    public void setProduct(List<Product> productList){
+        product = productList;
+    }
 }

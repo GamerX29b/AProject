@@ -19,35 +19,27 @@ public class ProductsSender {
     private static String subject = "BProject"; // Queue Name.You can create any/many queue names as per your requirement.
 
     public static void main(String[] args) throws JMSException {
-        // Getting JMS connection from the server and starting it
-        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
-        connectionFactory.setTrustAllPackages(true); //в доке написано что это не безопасно
-        Connection connection = connectionFactory.createConnection();
-        connection.start();
-
-
-        //Creating a non transactional session to send/receive JMS message.
-        Session session = connection.createSession(false,
-                Session.AUTO_ACKNOWLEDGE);
-
-        //Destination represents here our queue 'JCG_QUEUE' on the JMS server.
-        //The queue will be created automatically on the server.
-        Destination destination = session.createQueue(subject);
-
-        // MessageProducer is used for sending messages to the queue.
-        MessageProducer producer = session.createProducer(destination);
-
-
-        Client client = new Client();
+        //sender();
         GetFromBase getFromBase = new GetFromBase();
+        Client client = getFromBase.getClientFromAllOrders(1);
+        System.out.println(JAXBConverter.clientToXml(client));
 
-
-        TextMessage message = session.createTextMessage(JAXBConverter.clientToXml(getFromBase.getClientById(2)));
-
-        session.createObjectMessage();
-        // Here we are sending our message!
-        producer.send(message);
-
-        connection.close();
+        //Для тестов
+    }
+        public static void sender() throws JMSException {
+            ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
+            connectionFactory.setTrustAllPackages(true); //в доке написано что это не безопасно
+            Connection connection = connectionFactory.createConnection();
+            connection.start();
+            Session session = connection.createSession(false,
+                    Session.AUTO_ACKNOWLEDGE);
+            Destination destination = session.createQueue(subject);
+            MessageProducer producer = session.createProducer(destination);
+            Client client = new Client();
+            GetFromBase getFromBase = new GetFromBase();
+            TextMessage message = session.createTextMessage(JAXBConverter.clientToXml(getFromBase.getClientById(2)));
+            session.createObjectMessage();
+            producer.send(message);
+            connection.close();
     }
 }
