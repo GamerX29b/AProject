@@ -98,7 +98,9 @@ public class GetFromBase extends GenerateConnection {
                 "\"order\".\"orderGroupId\", \"order\".\"ProductId\", \"order\".\"date\",\n" +
                 "\"order\".\"quantity\", \"product\".\"nameProduct\", \"order\".\"id\"" +
                 "FROM \"client\", \"order\", \"product\"" +
-                "WHERE \"client\".\"id\" = '").append(idClient).append("' and \"order\".\"ProductId\" = \"product\".\"id\"").toString();
+                "WHERE \"client\".\"id\" = '").append(idClient).append("' " +
+                "and \"client\".\"id\" = \"order\".\"userId\" " +
+                "and \"order\".\"ProductId\" = \"product\".\"id\"").toString();
         Map<BigInteger, Order> orderMap = new HashMap<>();
         Connection conn = getConnect();
         try {

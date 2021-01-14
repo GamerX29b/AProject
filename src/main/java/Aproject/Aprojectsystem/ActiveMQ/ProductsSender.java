@@ -6,6 +6,7 @@ import javax.xml.bind.JAXBContext;
 import Aproject.Aprojectsystem.XSDSchema.Client;
 import Aproject.Aprojectsystem.XSDSchema.JAXBConverter;
 
+import Aproject.Aprojectsystem.database.AddToBase;
 import Aproject.Aprojectsystem.database.GetFromBase;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
@@ -20,9 +21,15 @@ public class ProductsSender {
 
     public static void main(String[] args) throws JMSException {
         //sender();
+        Client clientAdd = new Client();
+        clientAdd.setClientName("Дмитрий Петрович");
+        clientAdd.setClientAddress("Чёрная");
+
         GetFromBase getFromBase = new GetFromBase();
-        Client client = getFromBase.getClientFromAllOrders(1);
-        System.out.println(JAXBConverter.clientToXml(client));
+        AddToBase addToBase = new AddToBase();
+
+        //Client client = getFromBase.getClientFromAllOrders();
+        System.out.println(addToBase.createClientGetId(clientAdd));
 
         //Для тестов
     }
