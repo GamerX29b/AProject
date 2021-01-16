@@ -4,8 +4,13 @@ import Aproject.Aprojectsystem.XSDSchema.Client;
 import Aproject.Aprojectsystem.XSDSchema.JAXBConverter;
 import Aproject.Aprojectsystem.XSDSchema.Order;
 import Aproject.Aprojectsystem.XSDSchema.Product;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import javax.jms.*;
 
+@Repository
 public class BrokerReceiver extends CreateConnection{ //Reseiver это приёмщик!!! Почти как Ресивер!
 
 
@@ -15,6 +20,7 @@ public class BrokerReceiver extends CreateConnection{ //Reseiver это приё
      * Класс который будет получать класс продукта из брокера
      * @return
      */
+
     public Product takeProduct() {
         Product product = new Product();
         try {

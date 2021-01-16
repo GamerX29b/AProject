@@ -6,6 +6,8 @@ import Aproject.Aprojectsystem.XSDSchema.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -18,8 +20,9 @@ import java.sql.Statement;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
+@Repository
 public class GetFromBase extends GenerateConnection {
+
 
     @Autowired
     public Client getClientById(int idClient) {

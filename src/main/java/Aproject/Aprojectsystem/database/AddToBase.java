@@ -5,6 +5,7 @@ package Aproject.Aprojectsystem.database;
 import Aproject.Aprojectsystem.XSDSchema.Client;
 import Aproject.Aprojectsystem.XSDSchema.Order;
 import Aproject.Aprojectsystem.XSDSchema.Product;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
 import java.sql.Connection;
@@ -15,6 +16,7 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@Repository
 public class AddToBase extends GenerateConnection {
 
     static Logger LOGGER = Logger.getLogger(AddToBase.class.getName());
