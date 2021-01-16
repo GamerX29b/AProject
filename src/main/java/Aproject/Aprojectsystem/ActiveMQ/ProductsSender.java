@@ -2,16 +2,30 @@ package Aproject.Aprojectsystem.ActiveMQ;
 
 import javax.jms.*;
 import javax.xml.bind.JAXBContext;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.XMLGregorianCalendar;
 
+import Aproject.Aprojectsystem.Utils.UtilXml;
 import Aproject.Aprojectsystem.XSDSchema.Client;
 import Aproject.Aprojectsystem.XSDSchema.JAXBConverter;
 
+import Aproject.Aprojectsystem.XSDSchema.Order;
+import Aproject.Aprojectsystem.XSDSchema.Product;
 import Aproject.Aprojectsystem.database.AddToBase;
 import Aproject.Aprojectsystem.database.GetFromBase;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.tools.ant.taskdefs.condition.Or;
+
+import java.math.BigInteger;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Logger;
 
 public class ProductsSender {
+
+    static Logger LOGGER;
 
     //URL of the JMS server. DEFAULT_BROKER_URL will just mean that JMS server is on localhost
     private static String url = ActiveMQConnection.DEFAULT_BROKER_URL;
@@ -19,12 +33,36 @@ public class ProductsSender {
     // default broker URL is : tcp://localhost:61616"
     private static String subject = "BProject"; // Queue Name.You can create any/many queue names as per your requirement.
 
-    public static void main(String[] args) throws JMSException {
+    public static void main(String[] args) throws JMSException, DatatypeConfigurationException {
         //sender();
         Client clientAdd = new Client();
-        clientAdd.setClientName("Дмитрий Петрович");
-        clientAdd.setClientAddress("Чёрная");
+        UtilXml utilXml = new UtilXml();
+        List<Order> orderList = new LinkedList<>();
+        List<Product> productList = new LinkedList<>();
 
+        clientAdd.setClientName("Денис Поликарпович");
+        clientAdd.setClientAddress("Грозная улица");
+
+        Product product = new Product();
+
+        product.setId(BigInteger.valueOf(1));
+        product.setQuantity(BigInteger.valueOf(8));
+
+        productList.add(product);
+
+        product.setId(BigInteger.valueOf(2));
+        product.setQuantity(BigInteger.valueOf(4));
+
+        productList.add(product);
+
+
+        Order order = new Order();
+        order.setDate(utilXml.dataToCalendar(new Date()));
+        order.setOrderGroupId("50");
+        order.setProduct(productList);
+        orderList.add(order);
+
+        clientAdd.setOrder(orderList);
         GetFromBase getFromBase = new GetFromBase();
         AddToBase addToBase = new AddToBase();
 
