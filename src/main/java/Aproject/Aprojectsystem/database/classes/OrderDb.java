@@ -9,6 +9,7 @@ public class OrderDb {
 
     @Id
     protected int id;
+    protected int userId;
     protected String orderGroupId;
     protected int quantity;
     protected Date date;
