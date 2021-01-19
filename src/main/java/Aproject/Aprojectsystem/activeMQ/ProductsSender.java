@@ -1,9 +1,7 @@
-package Aproject.Aprojectsystem.ActiveMQ;
+package Aproject.Aprojectsystem.activeMQ;
 
 import javax.jms.*;
-import javax.xml.bind.JAXBContext;
 import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 import Aproject.Aprojectsystem.Utils.UtilXml;
 import Aproject.Aprojectsystem.XSDSchema.Client;
@@ -15,7 +13,6 @@ import Aproject.Aprojectsystem.database.AddToBase;
 import Aproject.Aprojectsystem.database.GetFromBase;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.tools.ant.taskdefs.condition.Or;
 
 import java.math.BigInteger;
 import java.util.Date;
