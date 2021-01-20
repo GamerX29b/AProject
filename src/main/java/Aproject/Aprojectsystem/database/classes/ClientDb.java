@@ -2,6 +2,7 @@ package Aproject.Aprojectsystem.database.classes;
 
 import org.springframework.data.annotation.Id;
 
+import javax.persistence.OneToMany;
 import java.util.List;
 
 public class ClientDb {
@@ -10,6 +11,8 @@ public class ClientDb {
         protected int id;
         protected String clientName;
         protected String clientAddress;
+
+        @OneToMany
         protected List<OrderDb> order;
 
     public int getId() {

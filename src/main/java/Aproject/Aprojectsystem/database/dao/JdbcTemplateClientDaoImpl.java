@@ -1,8 +1,9 @@
 package Aproject.Aprojectsystem.database.dao;
 
-import Aproject.Aprojectsystem.XSDSchema.Client;
 import Aproject.Aprojectsystem.XSDSchema.Order;
 import Aproject.Aprojectsystem.XSDSchema.Product;
+import Aproject.Aprojectsystem.database.classes.ClientDb;
+import Aproject.Aprojectsystem.database.mapper.ClientDbMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
@@ -12,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 
 public class JdbcTemplateClientDaoImpl implements ClientDao {
@@ -27,7 +29,15 @@ public class JdbcTemplateClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public int createClientGetId(Client client){
+    public ClientDb getClientsById(int id){
+        String sql = "SELECT * FROM \"client\" WHERE Id = ?";
+        ClientDb clientDb = jdbcTemplate.queryForObject(sql, new Object[]{id}, new ClientDbMapper());
+        return clientDb;
+    }
+
+
+    @Override
+    public int createClientGetId(ClientDb client) {
 
         //todo переделать под SPRING JDBC
         String insert = new StringBuffer().append("INSERT INTO \"client\" (\"clientName\", \"clientAddress\") VALUES ('")
