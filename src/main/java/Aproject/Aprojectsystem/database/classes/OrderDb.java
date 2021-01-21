@@ -13,6 +13,7 @@ public class OrderDb {
     protected String orderGroupId;
     protected int quantity;
     protected Date date;
+    protected int productId;
     protected List<ProductDb> product;
 
     public int getId() {
@@ -49,6 +50,14 @@ public class OrderDb {
 
     public Date getDate() {
         return date;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public void setDate(Date date) {

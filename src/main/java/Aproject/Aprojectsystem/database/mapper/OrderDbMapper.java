@@ -1,13 +1,12 @@
 package Aproject.Aprojectsystem.database.mapper;
 
-import Aproject.Aprojectsystem.database.classes.ClientDb;
 import Aproject.Aprojectsystem.database.classes.OrderDb;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class OrderDbMaper implements RowMapper<OrderDb> {
+public class OrderDbMapper implements RowMapper<OrderDb> {
 
 
 
@@ -16,9 +15,11 @@ public class OrderDbMaper implements RowMapper<OrderDb> {
         OrderDb orderDb = new OrderDb();
 
         orderDb.setId(rs.getInt(1));
-        orderDb.set(rs.getString(2));
-        //todo дописать
-        orderDb.setClientAddress(rs.getString(3));
+        orderDb.setOrderGroupId(rs.getString(2));
+        orderDb.setUserId(rs.getInt(3));
+        orderDb.setProductId(rs.getInt(4));
+        orderDb.setQuantity(rs.getInt(3));
+        orderDb.setDate(rs.getDate(3));
 
         return orderDb;
     }

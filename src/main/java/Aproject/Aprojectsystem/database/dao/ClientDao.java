@@ -3,6 +3,7 @@ package Aproject.Aprojectsystem.database.dao;
 import Aproject.Aprojectsystem.database.classes.ClientDb;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 public interface ClientDao {
 
@@ -10,5 +11,7 @@ public interface ClientDao {
 
     public int createClientGetId(ClientDb client);
 
-    public ClientDb getClientsById(int id);
+    public List<ClientDb> getAllClientsNoOrder(int id);
+
+    public ClientDb getClientById(int id);
 }

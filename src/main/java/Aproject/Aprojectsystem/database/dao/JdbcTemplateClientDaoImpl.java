@@ -1,43 +1,73 @@
 package Aproject.Aprojectsystem.database.dao;
 
-import Aproject.Aprojectsystem.XSDSchema.Order;
-import Aproject.Aprojectsystem.XSDSchema.Product;
+import Aproject.Aprojectsystem.database.AddToBase;
 import Aproject.Aprojectsystem.database.classes.ClientDb;
+import Aproject.Aprojectsystem.database.classes.OrderDb;
 import Aproject.Aprojectsystem.database.mapper.ClientDbMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.math.BigInteger;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.logging.Level;
+import java.util.*;
+import java.util.logging.Logger;
 
+@Repository
 public class JdbcTemplateClientDaoImpl implements ClientDao {
+
+    static Logger LOGGER = Logger.getLogger(AddToBase.class.getName());
 
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private OrderDao orderDao;
 
-    @Override
+
+    @Autowired
     public void setDataSource(DataSource dataSource){
         this.dataSource = dataSource;
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     @Override
-    public ClientDb getClientsById(int id){
-        String sql = "SELECT * FROM \"client\" WHERE Id = ?";
-        ClientDb clientDb = jdbcTemplate.queryForObject(sql, new ClientDbMapper());
+    public ClientDb getClientById(int id){
+        String sql = "SELECT * FROM \"client\" WHERE id = ?";
+        ClientDb clientDb = jdbcTemplate.queryForObject(sql, new ClientDbMapper(), id);
+
+        List<OrderDb> orderDbList = orderDao.getOrderByClientId(id);
+        clientDb.setOrder(orderDbList);
+
+        for (OrderDb orderDb : orderDbList){
+            Map<Integer, OrderDb> mapOrder = new HashMap<>();
+            Set<Integer> productIdCollection = new HashSet<>() {
+            };
+
+            productIdCollection.add(orderDb.getProductId()); //Коллекция айди продуктов
+
+            orderDb.getId();
+        }
+
         return clientDb;
     }
 
     @Override
-    public int createClientGetId(ClientDb client) {
+    public List<ClientDb> getAllClientsNoOrder(int id){
+        String sql = "SELECT * FROM \"client\" WHERE Id = ?";
+        List<ClientDb> clientDb = jdbcTemplate.query(sql, new ClientDbMapper());
+        return clientDb;
+    }
 
+
+
+
+    @Override
+    public int createClientGetId(ClientDb client) {
+        return 0;
+    }
+
+
+        /**
         //todo переделать под SPRING JDBC
         String insert = new StringBuffer().append("INSERT INTO \"client\" (\"clientName\", \"clientAddress\") VALUES ('")
                 .append(client.getClientName()).append("','").append(client.getClientAddress()).append("') RETURNING id ;").toString();
@@ -82,7 +112,6 @@ public class JdbcTemplateClientDaoImpl implements ClientDao {
             }
             order.setQuantity(valueProducts);
         }
-        Connection conn = getConnect();
         for (Order order : orders) {
             int cycleProduct = 0;
             cycleOrder++;
@@ -108,4 +137,5 @@ public class JdbcTemplateClientDaoImpl implements ClientDao {
         }
         return true;
     }
+     */
 }
