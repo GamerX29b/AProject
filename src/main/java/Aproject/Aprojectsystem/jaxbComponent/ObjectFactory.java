@@ -6,7 +6,7 @@
 //
 
 
-package Aproject.Aprojectsystem.XSDSchema;
+package Aproject.Aprojectsystem.jaxbComponent;
 
 import javax.xml.bind.annotation.XmlRegistry;
 

@@ -2,9 +2,9 @@ package Aproject.Aprojectsystem.database;
 
 
 
-import Aproject.Aprojectsystem.XSDSchema.Client;
-import Aproject.Aprojectsystem.XSDSchema.Order;
-import Aproject.Aprojectsystem.XSDSchema.Product;
+import Aproject.Aprojectsystem.jaxbComponent.Client;
+import Aproject.Aprojectsystem.jaxbComponent.Order;
+import Aproject.Aprojectsystem.jaxbComponent.Product;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;

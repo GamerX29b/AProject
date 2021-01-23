@@ -1,23 +1,24 @@
-package Aproject.Aprojectsystem.BrokerClass;
+package Aproject.Aprojectsystem.brokerClass;
 
-import Aproject.Aprojectsystem.XSDSchema.Client;
-import Aproject.Aprojectsystem.XSDSchema.JAXBConverter;
-import Aproject.Aprojectsystem.XSDSchema.Order;
-import Aproject.Aprojectsystem.XSDSchema.Product;
-import org.apache.activemq.ActiveMQConnection;
+import Aproject.Aprojectsystem.jaxbComponent.Client;
+import Aproject.Aprojectsystem.jaxbComponent.JAXBConverter;
+import Aproject.Aprojectsystem.jaxbComponent.Order;
+import Aproject.Aprojectsystem.jaxbComponent.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.stereotype.Component;
 
 import javax.jms.*;
 
 /*
 Клиент для отправки сообщений на AProject
  */
-public class BrokerTransmitter extends CreateConnection{
+@Component
+public class BrokerTransmitter extends JmsConfig {
 
-    // Адрес JMS сервера, пока можно оставить дефолтный ибо пофиг tcp://localhost:61616
-    private static String url = ActiveMQConnection.DEFAULT_BROKER_URL;
-    private static String subjectClient = "BProjectClient"; // Имя очереди, кому надо слать
-    private static String subjectProduct = "BProjectProduct";
-    private static String subjectOrder = "BProjectOrder";
+    @Autowired
+    JmsTemplate jmsTemplate;
+    //Todo тоже переписать под JMSTemplate
 
     public boolean clientSender(Client client) {
         if (client == null) return false;

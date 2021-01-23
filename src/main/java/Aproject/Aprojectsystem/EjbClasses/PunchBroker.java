@@ -1,8 +1,8 @@
 package Aproject.Aprojectsystem.EjbClasses;
 
-import Aproject.Aprojectsystem.BrokerClass.BrokerReceiver;
-import Aproject.Aprojectsystem.BrokerClass.BrokerTransmitter;
-import Aproject.Aprojectsystem.XSDSchema.Order;
+import Aproject.Aprojectsystem.brokerClass.BrokerReceiver;
+import Aproject.Aprojectsystem.brokerClass.BrokerTransmitter;
+import Aproject.Aprojectsystem.jaxbComponent.Order;
 import Aproject.Aprojectsystem.database.AddToBase;
 import Aproject.Aprojectsystem.database.GetFromBase;
 import Aproject.Aprojectsystem.database.classes.OrderDb;

@@ -1,10 +1,10 @@
 package Aproject.Aprojectsystem.activeMQ;
 
 import Aproject.Aprojectsystem.Utils.UtilXml;
-import Aproject.Aprojectsystem.XSDSchema.Client;
-import Aproject.Aprojectsystem.XSDSchema.JAXBConverter;
-import Aproject.Aprojectsystem.XSDSchema.Order;
-import Aproject.Aprojectsystem.XSDSchema.Product;
+import Aproject.Aprojectsystem.jaxbComponent.Client;
+import Aproject.Aprojectsystem.jaxbComponent.JAXBConverter;
+import Aproject.Aprojectsystem.jaxbComponent.Order;
+import Aproject.Aprojectsystem.jaxbComponent.Product;
 import Aproject.Aprojectsystem.database.AddToBase;
 import Aproject.Aprojectsystem.database.GetFromBase;
 import org.apache.activemq.ActiveMQConnection;
