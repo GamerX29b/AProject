@@ -2,10 +2,12 @@ package Aproject.Aprojectsystem.EjbClasses;
 
 import Aproject.Aprojectsystem.BrokerClass.BrokerReceiver;
 import Aproject.Aprojectsystem.BrokerClass.BrokerTransmitter;
-import Aproject.Aprojectsystem.XSDSchema.JAXBConverter;
 import Aproject.Aprojectsystem.XSDSchema.Order;
 import Aproject.Aprojectsystem.database.AddToBase;
 import Aproject.Aprojectsystem.database.GetFromBase;
+import Aproject.Aprojectsystem.database.classes.OrderDb;
+import Aproject.Aprojectsystem.database.dao.ClientDao;
+import Aproject.Aprojectsystem.database.dao.OrderDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,27 +15,55 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.xml.bind.JAXBContext;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 @RestController
 public class PunchBroker {
 
-    private BrokerReceiver brokerReceiver;
+    private final BrokerReceiver brokerReceiver;
     private AddToBase addToBase;
 
     @Autowired
-    public void setPerson (BrokerReceiver brokerReceiver, AddToBase addToBase) {
+    ClientDao clientDao;
+    OrderDao orderDao;
+
+    @Autowired
+    public PunchBroker(BrokerReceiver brokerReceiver,
+                       AddToBase addToBase,
+                       OrderDao orderDao) {
         this.brokerReceiver = brokerReceiver;
         this.addToBase = addToBase;
+        this.orderDao = orderDao;
     }
 
+    //Тест
     @RequestMapping("/hello/{name}")
     String hello(@PathVariable String name) {
 
-        return "Hi "+name+" !";
+        OrderDb orderDb = new OrderDb();
+        List<OrderDb> orderDbList = new LinkedList<>();
+
+        orderDb.setOrderGroupId(43);
+        orderDb.setQuantity(15);
+        orderDb.setProductId(1);
+        orderDb.setUserId(3);
+        orderDb.setDate(new Date());
+        orderDbList.add(orderDb);
+
+        OrderDb orderDb2 = new OrderDb();
+        orderDb2.setOrderGroupId(43);
+        orderDb2.setQuantity(2);
+        orderDb2.setProductId(2);
+        orderDb2.setUserId(3);
+        orderDb2.setDate(new Date());
+        orderDbList.add(orderDb2);
+
+        orderDao.addNewOrder(orderDbList, 3);
+
+        return "Hi "+ name + " !";
 
     }
 

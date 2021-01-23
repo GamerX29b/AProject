@@ -14,11 +14,13 @@ import java.util.Set;
 @Repository
 public class JdbcTemplateProductDaoImpl implements ProductDao {
 
+    @Autowired
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
 
+    public JdbcTemplateProductDaoImpl(){
+    }
 
-    @Autowired
     public void setDataSource(DataSource dataSource){
         this.dataSource = dataSource;
         this.jdbcTemplate = new JdbcTemplate(dataSource);
@@ -26,7 +28,7 @@ public class JdbcTemplateProductDaoImpl implements ProductDao {
 
     @Override
     public List<ProductDb> getProductById(int productId){
-        String sql = "SELECT * FROM \"order\" WHERE userId = ?";
+        String sql = "SELECT * FROM \"product\" WHERE id = ?";
         List<ProductDb> productDb = jdbcTemplate.query(sql, new ProductDbMapper(), productId);
         return productDb;
     }

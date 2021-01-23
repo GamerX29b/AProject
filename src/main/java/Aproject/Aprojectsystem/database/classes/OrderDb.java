@@ -10,7 +10,7 @@ public class OrderDb {
     @Id
     protected int id;
     protected int userId;
-    protected String orderGroupId;
+    protected int orderGroupId;
     protected int quantity;
     protected Date date;
     protected int productId;
@@ -32,11 +32,11 @@ public class OrderDb {
         this.userId = userId;
     }
 
-    public String getOrderGroupId() {
+    public int getOrderGroupId() {
         return orderGroupId;
     }
 
-    public void setOrderGroupId(String orderGroupId) {
+    public void setOrderGroupId(int orderGroupId) {
         this.orderGroupId = orderGroupId;
     }
 

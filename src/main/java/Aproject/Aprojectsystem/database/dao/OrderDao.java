@@ -11,6 +11,10 @@ public interface OrderDao {
 
     public List<OrderDb> getOrderByClientId(int clientId);
 
+    public void addNewOrder (List<OrderDb> orderDbs, int idClient);
+
     public OrderDb getOrderById(int id);
+
+    public List<OrderDb> getOrderByGroupId(int groupId);
 
 }
