@@ -40,16 +40,8 @@ public class JdbcTemplateClientDaoImpl implements ClientDao {
         ClientDb clientDb = jdbcTemplate.queryForObject(sql, new ClientDbMapper(), id);
 
         List<OrderDb> orderDbList = orderDao.getOrderByClientId(id);
-        clientDb.setOrder(orderDbList);
-
-        for (OrderDb orderDb : orderDbList){
-            Map<Integer, OrderDb> mapOrder = new HashMap<>();
-            Set<Integer> productIdCollection = new HashSet<>() {
-            };
-
-            productIdCollection.add(orderDb.getProductId()); //Коллекция айди продуктов
-
-            orderDb.getId();
+        if (orderDbList != null) {
+            clientDb.setOrder(orderDbList);
         }
 
         return clientDb;

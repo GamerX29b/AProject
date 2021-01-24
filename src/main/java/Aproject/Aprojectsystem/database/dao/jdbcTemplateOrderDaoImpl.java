@@ -1,6 +1,7 @@
 package Aproject.Aprojectsystem.database.dao;
 
 import Aproject.Aprojectsystem.database.classes.OrderDb;
+import Aproject.Aprojectsystem.database.classes.ProductDb;
 import Aproject.Aprojectsystem.database.mapper.OrderDbMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
@@ -11,7 +12,7 @@ import javax.sql.DataSource;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class jdbcTemplateOrderDaoImpl implements OrderDao{
@@ -19,10 +20,12 @@ public class jdbcTemplateOrderDaoImpl implements OrderDao{
     @Autowired
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
+    private ProductDao productDao;
 
-    public jdbcTemplateOrderDaoImpl(DataSource dataSource, JdbcTemplate jdbcTemplate){
+    public jdbcTemplateOrderDaoImpl(DataSource dataSource, JdbcTemplate jdbcTemplate, ProductDao productDao){
         this.dataSource = dataSource;
         this.jdbcTemplate = jdbcTemplate;
+        this.productDao = productDao;
     }
 
     @Override
@@ -32,21 +35,38 @@ public class jdbcTemplateOrderDaoImpl implements OrderDao{
 
     @Override
     public OrderDb getOrderById(int id){
-        String sql = "SELECT * FROM \"order\" WHERE Id = ?";
+        String sql = "SELECT * FROM \"order\" WHERE \"Id\" = ?";
         OrderDb orderDb = jdbcTemplate.queryForObject(sql, new OrderDbMapper(), id);
         return orderDb;
     }
 
     @Override
     public List<OrderDb> getOrderByClientId(int clientId){
-        String sql = "SELECT * FROM \"order\" WHERE userId = ?";
+        String sql = "SELECT * FROM \"order\" WHERE \"userId\" = ?";
+        Set<Integer> idProducts = new HashSet<>();
+        Map<Integer, OrderDb> orderDbMap = new HashMap<>();
         List<OrderDb> orderDb = jdbcTemplate.query(sql, new OrderDbMapper(), clientId);
-        return orderDb;
+        for(OrderDb order: orderDb){
+            idProducts.add(order.getProductId());
+            orderDbMap.put(order.getOrderGroupId(), order);
+        }
+        Map<Integer, ProductDb> productDbMap = productDao.getProductMapBySetId(idProducts);
+        for(OrderDb order: orderDb){
+            if(orderDbMap.get(order.getOrderGroupId()).getProduct() == null) {
+                List<ProductDb> productDbList = new LinkedList<>();
+                productDbList.add(productDbMap.get(order.getProductId()));
+                orderDbMap.get(order.getOrderGroupId()).setProduct(productDbList);
+            } else {
+                orderDbMap.get(order.getOrderGroupId()).getProduct().add(productDbMap.get(order.getProductId()));
+            }
+        }
+        List<OrderDb> sortOrder = new ArrayList<OrderDb>(orderDbMap.values());
+        return sortOrder;
     }
 
     @Override
     public List<OrderDb> getOrderByGroupId(int groupId){
-        String sql = "SELECT * FROM \"order\" WHERE orderGroupId = ?";
+        String sql = "SELECT * FROM \"order\" WHERE \"orderGroupId\" = ?";
         List<OrderDb> orderDb = jdbcTemplate.query(sql, new OrderDbMapper(), groupId);
         return orderDb;
     }

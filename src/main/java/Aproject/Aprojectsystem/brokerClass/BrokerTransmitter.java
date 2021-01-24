@@ -1,83 +1,65 @@
 package Aproject.Aprojectsystem.brokerClass;
 
 import Aproject.Aprojectsystem.jaxbComponent.Client;
-import Aproject.Aprojectsystem.jaxbComponent.JAXBConverter;
+import Aproject.Aprojectsystem.jaxbComponent.JaxbConverterImpl;
 import Aproject.Aprojectsystem.jaxbComponent.Order;
 import Aproject.Aprojectsystem.jaxbComponent.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Component;
 
-import javax.jms.*;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
+import javax.jms.TextMessage;
 
 /*
 Клиент для отправки сообщений на AProject
  */
 @Component
-public class BrokerTransmitter extends JmsConfig {
+public class BrokerTransmitter {
 
     @Autowired
     JmsTemplate jmsTemplate;
-    //Todo тоже переписать под JMSTemplate
+    JaxbConverterImpl jaxbConverter;
+
+    public BrokerTransmitter(JaxbConverterImpl jaxbConverter, JmsTemplate jmsTemplate) {
+        this.jaxbConverter = jaxbConverter;
+        this.jmsTemplate = jmsTemplate;
+    }
 
     public boolean clientSender(Client client) {
         if (client == null) return false;
-        try {
-            Connection connection = getConnection();
-            connection.start();
-            Session session = connection.createSession(false,
-                    Session.AUTO_ACKNOWLEDGE);
-            Destination destination = session.createQueue(subjectClient);
-            MessageProducer producer = session.createProducer(destination); // Создаётся некий "режиссёр" сообщения
-            TextMessage message = session.createTextMessage(JAXBConverter.clientToXml(client)); // Тут то, что мы шлём
-            session.createObjectMessage();
-            // Here we are sending our message!
-            producer.send(message);
-            connection.close();
-            return true;
-        } catch (JMSException e) {
-            e.printStackTrace();
-            return false;
-        }
+        jmsTemplate.send("BProjectClient", new MessageCreator() {
+            public Message createMessage(Session session) throws JMSException {
+                return session.createTextMessage(jaxbConverter.clientToXml(client));
+            }
+        });
+        return true;
     }
 
     public boolean productSender(Product product) {
         if (product == null) return false;
-        try {
-            Connection connection = getConnection();
-            connection.start();
-            Session session = connection.createSession(false,
-                    Session.AUTO_ACKNOWLEDGE);
-            Destination destination = session.createQueue(subjectProduct);
-            MessageProducer producer = session.createProducer(destination); // Создаётся некий "режиссёр" сообщения
-            TextMessage message = session.createTextMessage(JAXBConverter.productToXml(product)); // Тут то, что мы шлём
-            session.createObjectMessage();
-            producer.send(message);
-            connection.close();
-            return true;
-        } catch (JMSException e) {
-            e.printStackTrace();
-            return false;
-        }
+        jmsTemplate.send("BProjectProduct", new MessageCreator() {
+            @Override
+            public Message createMessage(Session session) throws JMSException {
+                TextMessage message = session.createTextMessage(jaxbConverter.productToXml(product));
+                return message;
+            }
+        });
+        return true;
     }
 
     public boolean orderSender(Order order) {
         if (order == null) return false;
-        try {
-            Connection connection = getConnection();
-            connection.start();
-            Session session = connection.createSession(false,
-                    Session.AUTO_ACKNOWLEDGE);
-            Destination destination = session.createQueue(subjectOrder);
-            MessageProducer producer = session.createProducer(destination); // Создаётся некий "режиссёр" сообщения
-            TextMessage message = session.createTextMessage(JAXBConverter.OrderToXml(order)); // Тут то, что мы шлём
-            session.createObjectMessage();
-            producer.send(message);
-            connection.close();
-            return true;
-        } catch (JMSException e) {
-            e.printStackTrace();
-            return false;
-        }
+        jmsTemplate.send("BProjectOrder", new MessageCreator() {
+            @Override
+            public Message createMessage(Session session) throws JMSException {
+                TextMessage message = session.createTextMessage(jaxbConverter.orderToXml(order));
+                return message;
+            }
+        });
+        return true;
     }
 }

@@ -1,5 +1,7 @@
 package Aproject.Aprojectsystem.jaxbComponent;
 
+import org.springframework.stereotype.Component;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -7,7 +9,8 @@ import javax.xml.bind.Unmarshaller;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-public class JAXBConverter {
+@Component
+public class JAXBConverter implements JaxbConverterImpl {
 
 //    public static void main(String[] args) {
 //        XJC2Task xjc2Task = new XJC2Task();
@@ -20,10 +23,14 @@ public class JAXBConverter {
 //        Product product = xmlToProduct(xml);
 //        System.out.println(product.getId() + " " + product.getNameProduct() + "_" + product.getQuantity());
 //    }
+    public JAXBConverter() {
+    }
+
     /*
-    PRODUCT
-     */
-    public static String productToXml(Product product) {
+        PRODUCT
+         */
+    @Override
+    public String productToXml(Product product) {
         String xmlProduct = "";
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(Product.class);
@@ -38,8 +45,8 @@ public class JAXBConverter {
         return xmlProduct;
     }
 
-
-    public static Product xmlToProduct(String textXml) {
+    @Override
+    public Product xmlToProduct(String textXml) {
         Product xmlToProduct = new Product();
         JAXBContext jaxbContext;
         try {
@@ -53,7 +60,8 @@ public class JAXBConverter {
         return xmlToProduct;
     }
 
-    public static String OrderToXml(Order order) {
+    @Override
+    public String orderToXml(Order order) {
         String xmlOrder = "";
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(Order.class);
@@ -68,7 +76,8 @@ public class JAXBConverter {
         return xmlOrder;
     }
 
-    public static Order xmlToOrder(String textXml) {
+    @Override
+    public Order xmlToOrder(String textXml) {
         Order xmlToProduct = new Order();
         JAXBContext jaxbContext;
         try {
@@ -82,7 +91,8 @@ public class JAXBConverter {
         return xmlToProduct;
     }
 
-    public static String clientToXml(Client client) {
+    @Override
+    public String clientToXml(Client client) {
         String xmlClient = "";
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(Client.class);
@@ -97,8 +107,8 @@ public class JAXBConverter {
         return xmlClient;
     }
 
-
-    public static Client xmlToClient(String textXml) {
+    @Override
+    public Client xmlToClient(String textXml) {
         Client xmlToClient = new Client();
         JAXBContext jaxbContext;
         try {

@@ -7,9 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Repository
 public class JdbcTemplateProductDaoImpl implements ProductDao {
@@ -18,12 +16,13 @@ public class JdbcTemplateProductDaoImpl implements ProductDao {
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
 
-    public JdbcTemplateProductDaoImpl(){
+    public JdbcTemplateProductDaoImpl(DataSource dataSource, JdbcTemplate jdbcTemplate){
+        this.dataSource = dataSource;
+        this.jdbcTemplate = jdbcTemplate;
     }
 
+    @Override
     public void setDataSource(DataSource dataSource){
-        this.dataSource = dataSource;
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     @Override
@@ -42,5 +41,20 @@ public class JdbcTemplateProductDaoImpl implements ProductDao {
         }
         return productDbList;
     }
+
+    @Override
+    public Map<Integer, ProductDb> getProductMapBySetId(Set<Integer> productId){
+        List<ProductDb> productDbList = new ArrayList<>();
+        for(Integer idProduct : productId){
+            String sql = "SELECT * FROM \"product\" WHERE id = ?";
+            productDbList.add(jdbcTemplate.queryForObject(sql, new ProductDbMapper(), idProduct));
+        }
+        Map<Integer, ProductDb> productDbMap = new HashMap<>();
+        for (ProductDb productDb : productDbList){
+            productDbMap.put(productDb.getId(), productDb);
+        }
+        return productDbMap;
+    }
+
 
 }

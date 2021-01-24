@@ -18,8 +18,8 @@ public class OrderDbMapper implements RowMapper<OrderDb> {
         orderDb.setOrderGroupId(rs.getInt(2));
         orderDb.setUserId(rs.getInt(3));
         orderDb.setProductId(rs.getInt(4));
-        orderDb.setQuantity(rs.getInt(3));
-        orderDb.setDate(rs.getDate(3));
+        orderDb.setQuantity(rs.getInt(5));
+        orderDb.setDate(rs.getDate(6));
 
         return orderDb;
     }
