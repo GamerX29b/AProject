@@ -17,4 +17,6 @@ public interface ProductDao {
 
     public Map<Integer, ProductDb> getProductMapBySetId(Set<Integer> productId);
 
+    public void setNewProduct (ProductDb productDb);
+
 }

@@ -1,6 +1,5 @@
 package Aproject.Aprojectsystem.brokerClass;
 
-import Aproject.Aprojectsystem.jaxbComponent.Client;
 import Aproject.Aprojectsystem.jaxbComponent.JaxbConverterImpl;
 import Aproject.Aprojectsystem.jaxbComponent.Order;
 import Aproject.Aprojectsystem.jaxbComponent.Product;
@@ -29,11 +28,11 @@ public class BrokerTransmitter {
         this.jmsTemplate = jmsTemplate;
     }
 
-    public boolean clientSender(Client client) {
+    public boolean clientSender(String client) {
         if (client == null) return false;
         jmsTemplate.send("BProjectClient", new MessageCreator() {
             public Message createMessage(Session session) throws JMSException {
-                return session.createTextMessage(jaxbConverter.clientToXml(client));
+                return session.createTextMessage(client);
             }
         });
         return true;
