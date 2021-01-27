@@ -3,16 +3,20 @@ package Aproject.Aprojectsystem.EjbClasses;
 import Aproject.Aprojectsystem.brokerClass.BrokerReceiver;
 import Aproject.Aprojectsystem.brokerClass.BrokerTransmitter;
 import Aproject.Aprojectsystem.database.AddToBase;
-import Aproject.Aprojectsystem.database.classes.ProductDb;
+import Aproject.Aprojectsystem.database.classes.ClientDb;
 import Aproject.Aprojectsystem.database.dao.ClientDao;
 import Aproject.Aprojectsystem.database.dao.OrderDao;
 import Aproject.Aprojectsystem.database.dao.ProductDao;
+import Aproject.Aprojectsystem.jaxbComponent.Client;
 import Aproject.Aprojectsystem.jaxbComponent.JaxbConverterImpl;
+import Aproject.Aprojectsystem.utils.MapperClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @RestController
@@ -48,26 +52,22 @@ public class PunchBroker {
     @RequestMapping("/hello/{name}")
     String hello(@PathVariable String name) {
 
-//        ClientDb clientDb = clientDao.getClientById(3);
-//
-//        MapperClass mapperClass = new MapperClass();
-//        Client client = null;
-//        try {
-//            client = mapperClass.clientDbToClient(clientDb);
-//        } catch (DatatypeConfigurationException e) {
-//            LOGGER.log(Level.SEVERE, e.getMessage());
-//        }
+        ClientDb clientDb = clientDao.getClientById(3);
+
+      MapperClass mapperClass = new MapperClass();
+       Client client = null;
+       try {
+           client = mapperClass.clientDbToClient(clientDb);
+       } catch (DatatypeConfigurationException e) {
+           LOGGER.log(Level.SEVERE, e.getMessage());
+       }
 //        String str = jaxbConverter.clientToXml(client);
-//        //brokerTransmitter.clientSender(client);
+         brokerTransmitter.clientSender(client);
 //        LOGGER.log(Level.WARNING, str);
 //       // boolean bobo = ;
 //        // LOGGER.log(Level.WARNING, String.valueOf(bobo));
 //        brokerTransmitter.clientSender(str);
 
-        ProductDb productDb = new ProductDb();
-        productDb.setNameProduct(name);
-        productDb.setQuantity(300);
-        productDao.setNewProduct(productDb);
 
 
         return name;

@@ -29,7 +29,7 @@ public class BrokerReceiver{ //Reseiver это приёмщик!!! Почти к
      */
     @JmsListener(destination = "BProjectProduct")
     @SendTo("AProjectProduct")
-    public Product takeProduct(final Message productMessage) throws JMSException {
+    public Product listenerProduct(final Message productMessage) throws JMSException {
         Product product = new Product();
             if (productMessage instanceof TextMessage) {
                 TextMessage textMessage  = (TextMessage) productMessage;  //Приведение к типу textMessage
@@ -43,7 +43,7 @@ public class BrokerReceiver{ //Reseiver это приёмщик!!! Почти к
      */
     @JmsListener(destination = "BProjectClient")
     @SendTo("AProjectClient")
-    public Client takeClient(final Message clientMessage) throws JMSException {
+    public Client listenerClient(final Message clientMessage) throws JMSException {
         Client client = new Client();
             if (clientMessage instanceof TextMessage) {
                 TextMessage textMessage  = (TextMessage) clientMessage;  //Приведение к типу textMessage
@@ -57,7 +57,7 @@ public class BrokerReceiver{ //Reseiver это приёмщик!!! Почти к
      */
     @JmsListener(destination = "BProjectOrder")
     @SendTo("AProjectOrder")
-    public Order takeOrder(final Message orderMessage) throws JMSException {
+    public Order listenerOrder(final Message orderMessage) throws JMSException {
         Order order = new Order();
             if (orderMessage instanceof TextMessage) {
                 TextMessage textMessage  = (TextMessage) orderMessage;  //Приведение к типу textMessage
