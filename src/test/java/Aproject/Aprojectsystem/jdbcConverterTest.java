@@ -15,12 +15,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(properties = "Ivan=Ivan")
 @ActiveProfiles("test")
-class jdbcConverterTest {
+class jaxbConverterTest {
         @Autowired
        JaxbConverterImpl jaxbConverter;
 
         @Autowired
-        jdbcConverterTest(JaxbConverterImpl jaxbConverter){
+        jaxbConverterTest(JaxbConverterImpl jaxbConverter){
             this.jaxbConverter = jaxbConverter;
         }
 
