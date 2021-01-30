@@ -1,23 +1,23 @@
 package Aproject.Aprojectsystem.ejbClasses;
 
 import Aproject.Aprojectsystem.brokerClass.BrokerTransmitter;
-import Aproject.Aprojectsystem.database.AddToBase;
 import Aproject.Aprojectsystem.database.classes.ClientDb;
 import Aproject.Aprojectsystem.database.dao.ClientDao;
 import Aproject.Aprojectsystem.jaxbComponent.Client;
 import Aproject.Aprojectsystem.utils.MapperClass;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.xml.datatype.DatatypeConfigurationException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@Stateless(name = "PunchBroker")
+@Stateless
+@Remote(PunchBrokerAnswer.class)
 public class PunchBroker implements PunchBrokerAnswer{
 
     static Logger LOGGER = Logger.getLogger(PunchBroker.class.getName());
-    private AddToBase addToBase;
 
 
     @Autowired
