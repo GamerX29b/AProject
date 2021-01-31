@@ -37,7 +37,6 @@ public class RemoteCaller {
     }
 
     @GetMapping(value = "/getClientDataFromId")
-    @ResponseStatus(HttpStatus.OK)
     public String boxer(@RequestParam(name = "id") String id){
             ClientDb clientDb = clientDao.getClientById(Integer.valueOf(id.replaceAll("[^0-9]","")));
             MapperClass mapperClass = new MapperClass();
@@ -51,7 +50,6 @@ public class RemoteCaller {
             return HttpStatus.OK.toString();
     }
     @GetMapping(value = "/getProductDataFromClientId")
-    @ResponseStatus(HttpStatus.OK)
     public String productPuncher(@RequestParam (name = "id")int id){
         OrderDb orderDb = orderDao.getOrderFromProductByGroupId(id);
         MapperClass mapperClass = new MapperClass();
