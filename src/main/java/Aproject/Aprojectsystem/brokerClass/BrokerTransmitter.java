@@ -56,7 +56,8 @@ public class BrokerTransmitter {
         jmsTemplate.send("BProjectOrder", new MessageCreator() {
             @Override
             public Message createMessage(Session session) throws JMSException {
-                TextMessage message = session.createTextMessage(jaxbConverter.orderToXml(order));
+                String orderMesage = jaxbConverter.orderToXml(order);
+                TextMessage message = session.createTextMessage(orderMesage);
                 return message;
             }
         });

@@ -65,10 +65,19 @@ public class jdbcTemplateOrderDaoImpl implements OrderDao{
     }
 
     @Override
-    public List<OrderDb> getOrderByGroupId(int groupId){
+    public OrderDb getOrderFromProductByGroupId(int groupId){
         String sql = "SELECT * FROM \"order\" WHERE \"orderGroupId\" = ?";
-        List<OrderDb> orderDb = jdbcTemplate.query(sql, new OrderDbMapper(), groupId);
-        return orderDb;
+        List<OrderDb> orderDbList = jdbcTemplate.query(sql, new OrderDbMapper(), groupId);
+        Set<Integer> productSet = new HashSet<>();
+        for (OrderDb orderDbToSet : orderDbList) {
+            productSet.add(orderDbToSet.getProductId());
+        }
+        OrderDb order = new OrderDb();
+        if (!orderDbList.isEmpty()) {
+             order = orderDbList.get(0);
+            order.setProduct(productDao.getProductBySetId(productSet));
+        }
+        return order;
     }
 
     @Override

@@ -8,15 +8,11 @@
 
 package Aproject.Aprojectsystem.jaxbComponent;
 
+import javax.xml.bind.annotation.*;
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -50,6 +46,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "date",
     "product"
 })
+@XmlRootElement(name = "order")
 public class Order {
 
     @XmlElement(required = true)

@@ -38,7 +38,6 @@ public class JdbcTemplateClientDaoImpl implements ClientDao {
     public ClientDb getClientById(int id){
         String sql = "SELECT * FROM \"client\" WHERE id = ?";
         ClientDb clientDb = jdbcTemplate.queryForObject(sql, new ClientDbMapper(), id);
-
         List<OrderDb> orderDbList = orderDao.getOrderByClientId(id);
         if (orderDbList != null) {
             clientDb.setOrder(orderDbList);

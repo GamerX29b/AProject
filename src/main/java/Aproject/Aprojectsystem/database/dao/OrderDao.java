@@ -15,6 +15,6 @@ public interface OrderDao {
 
     public OrderDb getOrderById(int id);
 
-    public List<OrderDb> getOrderByGroupId(int groupId);
+    public OrderDb getOrderFromProductByGroupId(int groupId);
 
 }
